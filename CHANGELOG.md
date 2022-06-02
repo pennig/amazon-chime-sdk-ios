@@ -1,3 +1,9 @@
+## [unreleased]
+
+### Added
+* Added support to set max bit rate for local video and content share
+* [Demo] Added max bit rate input in device selection view
+
 ## [0.21.0] - 2022-05-19
 
 ### Added

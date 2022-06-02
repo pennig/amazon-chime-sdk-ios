@@ -358,19 +358,28 @@ extension DefaultVideoClientController: VideoClientController {
     // MARK: - Video selection
 
     public func startLocalVideo() throws {
-        try checkVideoPermission()
-        setVideoSource(source: internalCaptureSource)
+        let config = LocalVideoConfiguration()
+        try startLocalVideo(config: config)
+    }
 
-        logger.info(msg: "Starting local video with internal source")
+    public func startLocalVideo(config: LocalVideoConfiguration) throws {
+        try checkVideoPermission()
+        logger.info(msg: "Starting local video with internal source and config")
+        setVideoSource(source: internalCaptureSource, config: config)
         internalCaptureSource.start()
         isInternalCaptureSourceRunning = true
     }
 
     public func startLocalVideo(source: VideoSource) {
-        stopInternalCaptureSourceIfRunning()
-        setVideoSource(source: source)
+        let config = LocalVideoConfiguration()
+        startLocalVideo(source: source, config: config)
+    }
 
-        logger.info(msg: "Starting local video with custom source")
+    public func startLocalVideo(source: VideoSource, config: LocalVideoConfiguration) {
+        stopInternalCaptureSourceIfRunning()
+        setVideoSource(source: source, config: config)
+
+        logger.info(msg: "Starting local video with custom source and custom config")
     }
 
     private func stopInternalCaptureSourceIfRunning() {
@@ -380,7 +389,7 @@ extension DefaultVideoClientController: VideoClientController {
         }
     }
 
-    private func setVideoSource(source: VideoSource) {
+    private func setVideoSource(source: VideoSource, config: LocalVideoConfiguration) {
         guard videoClientState != .uninitialized else {
             logger.fault(msg: "VideoClient is not initialized so returning without doing anything")
             return
@@ -389,6 +398,11 @@ extension DefaultVideoClientController: VideoClientController {
         videoSourceAdapter.source = source
         videoClient?.setExternalVideoSource(videoSourceAdapter)
         videoClient?.setSending(true)
+
+        if let maxBitRateKbps = config.maxBitRateKbps {
+            logger.info(msg: "Setting max bit rate in kbps for local video")
+            videoClient?.setMaxBitRateKbps(maxBitRateKbps)
+        }
     }
 
     public func stopLocalVideo() {

@@ -50,6 +50,8 @@ import Foundation
     func promotePrimaryMeeting(_ attendeeId: String!, externalUserId: String!, joinToken: String!)
 
     func demoteFromPrimaryMeeting()
+
+    func setMaxBitRateKbps(_ maxBitRate: Int32)
 }
 
 extension VideoClient: VideoClientProtocol {}

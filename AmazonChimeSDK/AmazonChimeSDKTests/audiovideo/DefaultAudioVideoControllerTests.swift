@@ -205,6 +205,28 @@ class DefaultAudioVideoControllerTests: CommonTestCase {
         verify(videoClientControllerMock.startLocalVideo()).wasCalled()
     }
 
+    func testStartLocalVideoWithConfig() {
+        let config = LocalVideoConfiguration()
+        XCTAssertNoThrow(try defaultAudioVideoController.startLocalVideo(config: config))
+
+        verify(videoClientControllerMock.startLocalVideo(config: config)).wasCalled()
+    }
+
+    func testStartLocalVideoWithSource() {
+        let cameraCaptureSourceMock: CameraCaptureSourceMock = mock(CameraCaptureSource.self)
+        defaultAudioVideoController.startLocalVideo(source: cameraCaptureSourceMock)
+
+        verify(videoClientControllerMock.startLocalVideo(source: cameraCaptureSourceMock)).wasCalled()
+    }
+
+    func testStartLocalVideoWithSourceAndConfig() {
+        let config = LocalVideoConfiguration()
+        let cameraCaptureSourceMock: CameraCaptureSourceMock = mock(CameraCaptureSource.self)
+        defaultAudioVideoController.startLocalVideo(source: cameraCaptureSourceMock, config: config)
+
+        verify(videoClientControllerMock.startLocalVideo(source: cameraCaptureSourceMock, config: config)).wasCalled()
+    }
+
     func testStopLocalVideo() {
         defaultAudioVideoController.stopLocalVideo()
 

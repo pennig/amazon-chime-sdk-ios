@@ -521,6 +521,7 @@ class MeetingViewController: UIViewController {
 
     @IBAction func cameraButtonClicked(_: UIButton) {
         cameraButton.isSelected.toggle()
+        meetingModel?.videoModel.localVideoMaxBitRateKbps = meetingModel?.deviceSelectionModel.localVideoMaxBitRateKbps
         meetingModel?.videoModel.isLocalVideoActive = cameraButton.isSelected
     }
 

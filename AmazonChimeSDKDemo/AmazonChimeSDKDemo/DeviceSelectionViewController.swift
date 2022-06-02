@@ -15,6 +15,7 @@ class DeviceSelectionViewController: UIViewController {
     @IBOutlet var videoDevicePicker: UIPickerView!
     @IBOutlet var videoFormatPicker: UIPickerView!
     @IBOutlet var videoPreviewImageView: DefaultVideoRenderView!
+    @IBOutlet var localVideoMaxBitRateTextField: UITextField!
     @IBOutlet var joinButton: UIButton!
 
     var model: DeviceSelectionModel?
@@ -28,16 +29,21 @@ class DeviceSelectionViewController: UIViewController {
         videoDevicePicker.dataSource = self
         videoFormatPicker.delegate = self
         videoFormatPicker.dataSource = self
+        localVideoMaxBitRateTextField.delegate = self
 
         videoPreviewImageView.mirror = model?.shouldMirrorPreview ?? false
         model?.cameraCaptureSource.addVideoSink(sink: videoPreviewImageView)
         model?.cameraCaptureSource.start()
+
+        setupHideKeyboardOnTap()
     }
 
     @IBAction func joinButtonTapped(_: UIButton) {
         guard let model = model else {
             return
         }
+        let maxBitRate: Int32? = Int32(localVideoMaxBitRateTextField.text ?? "")
+        model.localVideoMaxBitRateKbps = maxBitRate
         model.cameraCaptureSource.stop()
         model.cameraCaptureSource.removeVideoSink(sink: videoPreviewImageView)
         MeetingModule.shared().deviceSelected(model)
@@ -120,5 +126,12 @@ extension DeviceSelectionViewController: UIPickerViewDataSource {
         } else {
             return 0
         }
+    }
+}
+
+extension DeviceSelectionViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

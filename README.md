@@ -502,6 +502,11 @@ class MyVideoTileObserver: VideoTileObserver {
 // Use internal camera capture for the local video
 meetingSession.audioVideo.startLocalVideo()
 
+// Use internal camera capture and set configuration for the video, e.g. maxBitRateKbps
+// This can be called multiple times to adjust video max bit rate on the fly
+let localVideoConfig = LocalVideoConfiguration(maxBitRateKbps: 300)
+meetingSession.audioVideo.startLocalVideo(config: localVideoConfig)
+
 // You can switch camera to change the video input device
 meetingSession.audioVideo.switchCamera()
 
@@ -564,6 +569,11 @@ class MyContentShareObserver: ContentShareObserver {
 }
 ```
 
+You can set configuration for content share, e.g. maxBitRateKbps, using
+```swift
+let contentShareConfig = LocalVideoConfiguration(maxBitRateKbps: 200)
+meetingSession.audioVideo.startContentShare(source: contentShareSource, config: contentShareConfig)
+```
 See [Content Share](https://github.com/aws/amazon-chime-sdk-ios/blob/master/guides/content_share.md) for more details.
 
 #### Use case 19. Stop sharing your screen or content.

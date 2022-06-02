@@ -43,6 +43,11 @@ import Foundation
     }
 
     public func startVideoShare(source: VideoSource) {
+        logger.info(msg: "Starting video share with video source")
+        startVideoShare(source: source, config: LocalVideoConfiguration())
+    }
+
+    public func startVideoShare(source: VideoSource, config: LocalVideoConfiguration) {
         videoClientLock.lock()
         defer { videoClientLock.unlock() }
 
@@ -52,6 +57,11 @@ import Foundation
         videoSourceAdapter.source = source
         videoClient.setExternalVideoSource(videoSourceAdapter)
         videoClient.setSending(true)
+
+        if let maxBitRateKbps = config.maxBitRateKbps {
+            logger.info(msg: "Setting max bit rate in kbps for content share")
+            videoClient.setMaxBitRateKbps(maxBitRateKbps)
+        }
     }
 
     public func stopVideoShare() {

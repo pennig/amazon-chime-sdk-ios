@@ -59,6 +59,8 @@ class VideoModel: NSObject {
         super.init()
     }
 
+    var localVideoMaxBitRateKbps: Int32?
+
     var videoTileCount: Int {
         return remoteVideoCountInCurrentPage + 1
     }
@@ -217,7 +219,9 @@ class VideoModel: NSObject {
                         customVideoSource.addVideoSink(sink: self.backgroundReplacementProcessor)
                         customVideoSource = self.backgroundReplacementProcessor
                     }
-                    self.audioVideoFacade.startLocalVideo(source: customVideoSource)
+                    let config = LocalVideoConfiguration(maxBitRateKbps: self.localVideoMaxBitRateKbps)
+                    self.audioVideoFacade.startLocalVideo(source: customVideoSource,
+                                                          config: config)
                 } else {
                     do {
                         try self.audioVideoFacade.startLocalVideo()

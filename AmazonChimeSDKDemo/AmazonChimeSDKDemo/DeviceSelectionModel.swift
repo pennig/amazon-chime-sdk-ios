@@ -22,6 +22,7 @@ class DeviceSelectionModel {
         }
     }()
 
+    var localVideoMaxBitRateKbps: Int32?
     var selectedAudioDeviceIndex = 0
     var selectedVideoDeviceIndex: Int = 0 {
         didSet {
