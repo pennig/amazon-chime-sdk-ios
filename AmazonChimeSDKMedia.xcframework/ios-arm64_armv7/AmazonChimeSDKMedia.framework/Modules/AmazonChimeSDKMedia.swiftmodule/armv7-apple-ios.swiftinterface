@@ -1,0 +1,64 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6 (swiftlang-5.6.0.323.62 clang-1316.0.20.8)
+// swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name AmazonChimeSDKMedia
+@_exported import AmazonChimeSDKMedia
+import Foundation
+import Swift
+import _Concurrency
+public enum PrimaryMeetingEventTypeInternal {
+  case joinAck, leave
+  public static func == (a: AmazonChimeSDKMedia.PrimaryMeetingEventTypeInternal, b: AmazonChimeSDKMedia.PrimaryMeetingEventTypeInternal) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum PrimaryMeetingEventStatusInternal {
+  case Ok, CallAtCapacity, AuthenticationFailed
+  public static func == (a: AmazonChimeSDKMedia.PrimaryMeetingEventStatusInternal, b: AmazonChimeSDKMedia.PrimaryMeetingEventStatusInternal) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension AmazonChimeSDKMedia.TranscriptItemInternal {
+  public var stable: Swift.Bool? {
+    get
+  }
+  public var confidence: Swift.Double? {
+    get
+  }
+}
+extension AmazonChimeSDKMedia.TranscriptAlternativeInternal {
+  @objc public class Entity : ObjectiveC.NSObject {
+    final public let type: Swift.String
+    final public let content: Swift.String
+    final public let category: Swift.String
+    final public let confidence: Swift.Double?
+    final public let startTimeMs: Swift.Int64
+    final public let endTimeMs: Swift.Int64
+    public init(type: Swift.String, content: Swift.String, category: Swift.String, confidence: Swift.Double?, startTimeMs: Swift.Int64, endTimeMs: Swift.Int64)
+    @objc deinit
+  }
+  public var entities: [AmazonChimeSDKMedia.TranscriptAlternativeInternal.Entity]! {
+    get
+  }
+}
+extension AmazonChimeSDKMedia.TranscriptResultInternal {
+  @objc public class LanguageId : ObjectiveC.NSObject {
+    final public let languageCode: Swift.String
+    final public let score: Swift.Double
+    public init(languageCode: Swift.String, score: Swift.Double)
+    @objc deinit
+  }
+  public var languageCode: Swift.String {
+    get
+  }
+  public var languageIdentification: [AmazonChimeSDKMedia.TranscriptResultInternal.LanguageId]! {
+    get
+  }
+}
+extension AmazonChimeSDKMedia.PrimaryMeetingEventTypeInternal : Swift.Equatable {}
+extension AmazonChimeSDKMedia.PrimaryMeetingEventTypeInternal : Swift.Hashable {}
+extension AmazonChimeSDKMedia.PrimaryMeetingEventStatusInternal : Swift.Equatable {}
+extension AmazonChimeSDKMedia.PrimaryMeetingEventStatusInternal : Swift.Hashable {}

@@ -1,0 +1,11 @@
+framework module AmazonChimeSDKMedia {
+  umbrella header "AmazonChimeSDKMedia.h"
+
+  export *
+  module * { export * }
+}
+
+module AmazonChimeSDKMedia.Swift {
+    header "AmazonChimeSDKMedia-Swift.h"
+    requires objc
+}
